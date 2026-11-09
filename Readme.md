@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм»
 
 * Студент: [Тимур Мирхайдаров](https://up.htmlacademy.ru/javascript-individual/3/user/796097).
-* Наставник: `Неизвестно`.
+* Наставник: [Алексей Хапов](https://htmlacademy.ru/profile/id118459).
 
 ---
 
