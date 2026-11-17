@@ -1,20 +1,29 @@
-const isStrLen = (str, maxLength) => (str.length <= maxLength);
-window.console.log('isStrLen', isStrLen('проверяемая строка', 20)); // true
-// Длина строки ровно 18 символов
-window.console.log('isStrLen', isStrLen('проверяемая строка', 18)); // true
-// Строка длиннее 10 символов
-window.console.log('isStrLen', isStrLen('проверяемая строка', 10)); // false
+// convertTimeToMinutes переводит часы в минуты, складывает результат с минутами. получаем количество минут от начала дня
+const convertTimeToMinutes = (notFormattedTime) => {
+  let [hoursInMinutes, minutes] = notFormattedTime.split(':', 2);
+  hoursInMinutes = +hoursInMinutes * 60;
+  minutes = +minutes;
 
-const isStringPalindromic = (str) => {
-  const formatStr = str.toLowerCase().replaceAll(' ', '');
-  let reverseStr = '';
-
-  for (let i = formatStr.length - 1; i >= 0; i--) {
-    reverseStr += formatStr[i];
-  }
-  return (reverseStr === formatStr);
+  return (hoursInMinutes + minutes);
 };
 
-window.console.log('isStringPalindromic', isStringPalindromic('Лёша на полке клопа нашёл '));
+const isTimeInLimit = (startWork, endWork, startMeet, duration) => {
+  const formattedStartWork = convertTimeToMinutes(startWork);
+  const formattedStartMeet = convertTimeToMinutes(startMeet);
+  const formattedEndWork = convertTimeToMinutes(endWork);
+  return formattedEndWork >= formattedStartMeet + duration && formattedStartMeet >= formattedStartWork;
+};
 
-
+// isTimeInLimit('Начало рабочего дня', 'Конец рабочего дня', 'Начало встречи', длительность встречи);
+let testIsTimeInLimit = isTimeInLimit('08:00', '17:30', '14:00', 90);
+window.console.log(testIsTimeInLimit);
+testIsTimeInLimit = isTimeInLimit('8:0', '10:0', '8:0', 120);
+window.console.log(testIsTimeInLimit);
+testIsTimeInLimit = isTimeInLimit('08:00', '14:30', '14:00', 90);
+window.console.log(testIsTimeInLimit);
+testIsTimeInLimit = isTimeInLimit('14:00', '17:30', '08:0', 90);
+window.console.log(testIsTimeInLimit);
+testIsTimeInLimit = isTimeInLimit('8:00', '17:30', '08:00', 900);
+window.console.log(testIsTimeInLimit);
+testIsTimeInLimit = isTimeInLimit('8:00', '17:30', '060:00', 90);
+window.console.log(testIsTimeInLimit);
